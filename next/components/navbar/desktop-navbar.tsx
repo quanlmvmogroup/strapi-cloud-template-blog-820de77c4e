@@ -9,6 +9,7 @@ import {
 import { Link } from 'next-view-transitions';
 import { useState } from 'react';
 
+import { SearchLineIcon } from '../icons/illustrations';
 import { LocaleSwitcher } from '../locale-switcher';
 import { NavbarItem } from './navbar-item';
 import { Button } from '@/components/elements/button';
@@ -36,46 +37,13 @@ export const DesktopNavbar = ({
   logo,
   locale,
 }: Props) => {
-  const { scrollY } = useScroll();
-
-  const [showBackground, setShowBackground] = useState(false);
-
-  useMotionValueEvent(scrollY, 'change', (value) => {
-    if (value > 100) {
-      setShowBackground(true);
-    } else {
-      setShowBackground(false);
-    }
-  });
   return (
-    <motion.div
-      className={cn(
-        'w-full flex relative justify-between px-4 py-3 rounded-md  transition duration-200 bg-transparent mx-auto'
-      )}
-      animate={{
-        width: showBackground ? '80%' : '100%',
-        background: showBackground ? 'var(--neutral-900)' : 'transparent',
-      }}
-      transition={{
-        duration: 0.4,
-      }}
-    >
-      <AnimatePresence>
-        {showBackground && (
-          <motion.div
-            key={String(showBackground)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 1,
-            }}
-            className="absolute inset-0 h-full w-full bg-neutral-900 pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)] rounded-full"
-          />
-        )}
-      </AnimatePresence>
+    <div className="flex justify-between">
       <div className="flex flex-row gap-2 items-center">
         <Logo locale={locale} image={logo?.image} />
-        <div className="flex items-center gap-1.5">
+      </div>
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-full border border-[#F5F5F5] p-1">
           {leftNavbarItems.map((item) => (
             <NavbarItem
               href={`/${locale}${item.URL}` as never}
@@ -85,6 +53,9 @@ export const DesktopNavbar = ({
               {item.text}
             </NavbarItem>
           ))}
+        </div>
+        <div className="rounded-full border border-[#F5F5F5] p-2 hover:bg-[#F5F5F5] cursor-pointer">
+          <SearchLineIcon className="text-black size-5" />
         </div>
       </div>
       <div className="flex space-x-2 items-center">
@@ -98,11 +69,12 @@ export const DesktopNavbar = ({
             }
             as={Link}
             href={`/${locale}${item.URL}`}
+            className="rounded-full"
           >
             {item.text}
           </Button>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 };

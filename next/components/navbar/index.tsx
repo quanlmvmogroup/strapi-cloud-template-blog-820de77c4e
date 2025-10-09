@@ -7,8 +7,8 @@ import { MobileNavbar } from './mobile-navbar';
 
 export function Navbar({ data, locale }: { data: any; locale: string }) {
   return (
-    <motion.nav className="max-w-7xl  fixed top-4  mx-auto inset-x-0 z-50 w-[95%] lg:w-full">
-      <div className="hidden lg:block w-full">
+    <motion.nav className="max-w-7xl mx-auto w-full">
+      <div className="w-full h-[68px] grow py-4 px-10">
         {data?.left_navbar_items && (
           <DesktopNavbar
             locale={locale}

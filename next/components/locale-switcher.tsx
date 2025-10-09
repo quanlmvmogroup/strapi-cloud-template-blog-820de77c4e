@@ -1,9 +1,18 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 import { useSlugContext } from '@/app/context/SlugContext';
 import { cn } from '@/lib/utils';
 
@@ -37,21 +46,37 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
 
   return (
     <div className="flex gap-2 p-1 rounded-md">
-      {!pathname.includes('/products/') &&
-        Object.keys(localizedSlugs).map((locale) => (
-          <Link key={locale} href={generateLocalizedPath(locale)}>
-            <div
-              className={cn(
-                'flex cursor-pointer items-center justify-center text-sm leading-[110%] w-8 py-1 rounded-md hover:bg-neutral-800 hover:text-white/80 text-white hover:shadow-[0px_1px_0px_0px_var(--neutral-600)_inset] transition duration-200',
-                locale === currentLocale
-                  ? 'bg-neutral-800 text-white shadow-[0px_1px_0px_0px_var(--neutral-600)_inset]'
-                  : ''
-              )}
-            >
-              {locale}
-            </div>
-          </Link>
-        ))}
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <div className="flex gap-2 items-center">
+            <img
+              src={`/flags/${currentLocale}.png`}
+              alt={currentLocale}
+              className="size-4 flex-none"
+            />
+            {currentLocale.toUpperCase()}
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          {!pathname.includes('/products/') &&
+            Object.keys(localizedSlugs).map((locale) => (
+              <DropdownMenuItem key={locale}>
+                <Link
+                  key={locale}
+                  href={generateLocalizedPath(locale)}
+                  className="flex gap-2"
+                >
+                  <img
+                    src={`/flags/${locale}.png`}
+                    alt={locale}
+                    className="size-4 flex-none"
+                  />
+                  {locale.toUpperCase()}
+                </Link>
+              </DropdownMenuItem>
+            ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }

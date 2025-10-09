@@ -4,9 +4,23 @@ const nextConfig = {
     root: process.cwd().replace('/next', ''),
   },
   images: {
-    remotePatterns: [{ hostname: process.env.IMAGE_HOSTNAME || 'localhost' }],
+    remotePatterns: [
+      { hostname: process.env.IMAGE_HOSTNAME, protocol: 'https' },
+      {
+        hostname: 'localhost',
+        protocol: 'http',
+      },
+    ],
   },
   pageExtensions: ['ts', 'tsx'],
+  async rewrites() {
+    return [
+      {
+        source: '/:locale/flags/:path*',
+        destination: '/flags/:path*',
+      },
+    ];
+  },
   async redirects() {
     let redirections = [];
     try {

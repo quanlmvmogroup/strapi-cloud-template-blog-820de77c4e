@@ -63,9 +63,9 @@ export const Footer = async ({
             </div>
           </div>
           <div className="grid grid-cols-3 gap-10 items-start mt-10 md:mt-0">
-            <LinkSection links={data?.internal_links} locale={locale} />
-            <LinkSection links={data?.policy_links} locale={locale} />
-            <LinkSection links={data?.social_media_links} locale={locale} />
+            <LinkSection links={data?.links_1} locale={locale} />
+            <LinkSection links={data?.links_2} locale={locale} />
+            <LinkSection links={data?.links_3} locale={locale} />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import { draftMode } from 'next/headers';
 import { Metadata } from 'next';
 import { ViewTransitions } from 'next-view-transitions';
 import { Inter } from 'next/font/google';
+import { draftMode } from 'next/headers';
 import React from 'react';
 
 import { DraftModeBanner } from '@/components/draft-mode-banner';
@@ -60,7 +60,7 @@ export default async function LocaleLayout(props: {
         <div
           className={cn(
             inter.className,
-            'bg-charcoal antialiased h-full w-full'
+            'bg-[#FCFCFC] antialiased h-full w-full'
           )}
         >
           <Navbar data={pageData.navbar} locale={locale} />

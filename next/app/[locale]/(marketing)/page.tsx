@@ -52,9 +52,9 @@ export default async function HomePage(props: {
   );
 
   return (
-    <>
+    <div className="max-w-7xl mx-auto w-full">
       <ClientSlugHandler localizedSlugs={localizedSlugs} />
       <PageContent pageData={pageData} />
-    </>
+    </div>
   );
 }

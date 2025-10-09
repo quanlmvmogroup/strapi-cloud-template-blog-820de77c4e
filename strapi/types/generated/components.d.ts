@@ -150,8 +150,8 @@ export interface DynamicZoneHero extends Struct.ComponentSchema {
   };
   attributes: {
     CTAs: Schema.Attribute.Component<'shared.button', true>;
-    heading: Schema.Attribute.String;
-    sub_heading: Schema.Attribute.String;
+    heading: Schema.Attribute.Blocks;
+    sub_heading: Schema.Attribute.Blocks;
   };
 }
 
@@ -180,6 +180,20 @@ export interface DynamicZoneLaunches extends Struct.ComponentSchema {
     heading: Schema.Attribute.String;
     launches: Schema.Attribute.Component<'shared.launches', true>;
     sub_heading: Schema.Attribute.String;
+  };
+}
+
+export interface DynamicZoneMedia extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_media';
+  info: {
+    displayName: 'Media';
+    icon: 'picture';
+  };
+  attributes: {
+    media: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
   };
 }
 
@@ -249,14 +263,13 @@ export interface GlobalFooter extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
-    built_with: Schema.Attribute.String;
-    copyright: Schema.Attribute.String;
-    description: Schema.Attribute.String;
-    designed_developed_by: Schema.Attribute.String;
-    internal_links: Schema.Attribute.Component<'shared.link', true>;
+    copyright: Schema.Attribute.Blocks;
+    email: Schema.Attribute.Email;
+    links_1: Schema.Attribute.Component<'shared.link', true>;
+    links_2: Schema.Attribute.Component<'shared.link', true>;
+    links_3: Schema.Attribute.Component<'shared.link', true>;
     logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
-    policy_links: Schema.Attribute.Component<'shared.link', true>;
-    social_media_links: Schema.Attribute.Component<'shared.link', true>;
+    website: Schema.Attribute.String;
   };
 }
 
@@ -520,6 +533,7 @@ declare module '@strapi/strapi' {
       'dynamic-zone.hero': DynamicZoneHero;
       'dynamic-zone.how-it-works': DynamicZoneHowItWorks;
       'dynamic-zone.launches': DynamicZoneLaunches;
+      'dynamic-zone.media': DynamicZoneMedia;
       'dynamic-zone.pricing': DynamicZonePricing;
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;

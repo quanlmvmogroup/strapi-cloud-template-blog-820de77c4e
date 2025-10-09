@@ -12,32 +12,29 @@
       "relation": "oneToOne",
       "target": "api::logo.logo"
     },
-    "description": {
-      "type": "string"
-    },
     "copyright": {
+      "type": "blocks"
+    },
+    "email": {
+      "type": "email"
+    },
+    "website": {
       "type": "string"
     },
-    "designed_developed_by": {
-      "type": "string"
-    },
-    "built_with": {
-      "type": "string"
-    },
-    "internal_links": {
+    "links_1": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.link"
+      "component": "shared.link",
+      "repeatable": true
     },
-    "policy_links": {
+    "links_2": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.link"
+      "component": "shared.link",
+      "repeatable": true
     },
-    "social_media_links": {
+    "links_3": {
       "type": "component",
-      "repeatable": true,
-      "component": "shared.link"
+      "component": "shared.link",
+      "repeatable": true
     }
   }
 }
