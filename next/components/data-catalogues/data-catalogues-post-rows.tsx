@@ -46,7 +46,7 @@ export const DataCatalogueRows = ({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search"
-            className="text-sm min-w-full sm:min-w-96  p-2 border-none  focus:ring-0 focus:outline-none outline-none text-neutral-200 placeholder-[#717171] w-full"
+            className="text-sm min-w-full sm:min-w-96  p-2 border-none  focus:ring-0 focus:outline-none outline-none text-black placeholder-[#717171] w-full"
           />
         </div>
         <div className="bg-black py-2 px-3 flex text-white items-center rounded-full text-xs gap-3 cursor-pointer">

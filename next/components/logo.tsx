@@ -1,11 +1,10 @@
 import { Link } from 'next-view-transitions';
-import React from 'react';
 
 import { BlurImage } from './blur-image';
 import { strapiImage } from '@/lib/strapi/strapiImage';
-import { Image } from '@/types/types';
+import { Media } from '@/types/types';
 
-export const Logo = ({ image, locale }: { image?: Image; locale?: string }) => {
+export const Logo = ({ image, locale }: { image?: Media; locale?: string }) => {
   if (image) {
     return (
       <Link

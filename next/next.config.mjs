@@ -19,6 +19,10 @@ const nextConfig = {
         source: '/:locale/flags/:path*',
         destination: '/flags/:path*',
       },
+      {
+        source: '/:locale/mine-types/:path*',
+        destination: '/mine-types/:path*',
+      },
     ];
   },
   async redirects() {
