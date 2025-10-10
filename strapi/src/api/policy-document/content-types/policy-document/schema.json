@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "videos",
+  "collectionName": "policy_documents",
   "info": {
-    "singularName": "video",
-    "pluralName": "videos",
-    "displayName": "Videos"
+    "singularName": "policy-document",
+    "pluralName": "policy-documents",
+    "displayName": "Policy Documents"
   },
   "options": {
     "draftAndPublish": true
@@ -15,21 +15,6 @@
     }
   },
   "attributes": {
-    "media": {
-      "type": "media",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
     "title": {
       "type": "string",
       "pluginOptions": {
@@ -39,22 +24,27 @@
       }
     },
     "description": {
-      "type": "blocks",
+      "type": "richtext",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       }
     },
-    "youtube_url": {
-      "type": "string",
+    "type": {
+      "type": "enumeration",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "enum": [
+        "Policy",
+        "Toolkit",
+        "Guideline"
+      ]
     },
-    "thumbnail": {
+    "attachment": {
       "type": "media",
       "pluginOptions": {
         "i18n": {
@@ -69,13 +59,19 @@
         "audios"
       ]
     },
-    "duration": {
-      "type": "string",
+    "publication_date": {
+      "type": "date",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       }
+    },
+    "document_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::document-category.document-category",
+      "inversedBy": "policy_documents"
     }
   }
 }

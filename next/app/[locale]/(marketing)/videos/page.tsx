@@ -6,52 +6,38 @@ import { DataCatalogueRows } from '@/components/data-catalogues/data-catalogues-
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import { Heading } from '@/components/elements/heading';
 import { Subheading } from '@/components/elements/subheading';
+import { PolicyRows } from '@/components/policy/policy-post-row';
+import { VideoPostRows } from '@/components/videos/videos-post-row';
 import { generateMetadataObject } from '@/lib/shared/metadata';
 import fetchContentType from '@/lib/strapi/fetchContentType';
 
-export async function generateMetadata(props: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const params = await props.params;
-  const pageData = await fetchContentType(
-    'data-catalogue-page',
-    {
-      filters: { locale: params.locale },
-      populate: 'seo.metaImage',
-    },
-    true
-  );
-
-  const seo = pageData?.seo;
-  const metadata = generateMetadataObject(seo);
-  return metadata;
-}
-
-export default async function DataCatalogues(props: {
+export default async function Videos(props: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const params = await props.params;
-  const dataCataloguesPage = await fetchContentType(
-    'data-catalogue-page',
+  const videosPage = await fetchContentType(
+    'videos-page',
     {
       filters: { locale: params.locale },
     },
     true
   );
-  const dataCatalogues = await fetchContentType(
-    'data-catalogues',
+  const videos = await fetchContentType(
+    'videos',
     {
       filters: { locale: params.locale },
     },
     false
   );
 
-  const localizedSlugs = dataCataloguesPage.localizations?.reduce(
+  console.log('🚀 ~ page.tsx:33 ~ Videos ~ videos:', videos);
+
+  const localizedSlugs = videosPage.localizations?.reduce(
     (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = 'data-catalogue-page';
+      acc[localization.locale] = 'videos-page';
       return acc;
     },
-    { [params.locale]: 'data-catalogue-page' }
+    { [params.locale]: 'videos-page' }
   );
 
   return (
@@ -61,15 +47,14 @@ export default async function DataCatalogues(props: {
       <Container className="flex flex-col items-center justify-between pb-20">
         <div className="relative z-20 py-10 md:pt-12">
           <h1 className="mt-4 w-full max-w-3xl text-5xl text-center">
-            Enabling <span className="text-green-600">data-driven</span> climate
-            finance for a sustainable future
+            {videosPage.heading}
           </h1>
+          {videosPage.sub_heading && (
+            <p className="text-[#8B9395] mt-4">{videosPage.sub_heading}</p>
+          )}
         </div>
 
-        <DataCatalogueRows
-          dataCatalogues={dataCatalogues.data}
-          locale={params.locale}
-        />
+        <VideoPostRows videos={videos.data} locale={params.locale} />
       </Container>
     </div>
   );

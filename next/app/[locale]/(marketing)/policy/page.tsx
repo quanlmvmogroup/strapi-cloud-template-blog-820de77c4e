@@ -6,6 +6,7 @@ import { DataCatalogueRows } from '@/components/data-catalogues/data-catalogues-
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import { Heading } from '@/components/elements/heading';
 import { Subheading } from '@/components/elements/subheading';
+import { PolicyRows } from '@/components/policy/policy-post-row';
 import { generateMetadataObject } from '@/lib/shared/metadata';
 import fetchContentType from '@/lib/strapi/fetchContentType';
 
@@ -14,7 +15,7 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const params = await props.params;
   const pageData = await fetchContentType(
-    'data-catalogue-page',
+    'policy-page',
     {
       filters: { locale: params.locale },
       populate: 'seo.metaImage',
@@ -27,31 +28,33 @@ export async function generateMetadata(props: {
   return metadata;
 }
 
-export default async function DataCatalogues(props: {
+export default async function Toolkits(props: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const params = await props.params;
-  const dataCataloguesPage = await fetchContentType(
-    'data-catalogue-page',
+  const policyPage = await fetchContentType(
+    'policy-page',
     {
       filters: { locale: params.locale },
     },
     true
   );
-  const dataCatalogues = await fetchContentType(
-    'data-catalogues',
+  const policies = await fetchContentType(
+    'policy-document',
     {
       filters: { locale: params.locale },
     },
     false
   );
 
-  const localizedSlugs = dataCataloguesPage.localizations?.reduce(
+  console.log('🚀 ~ page.tsx:50 ~ Toolkits ~ policies:', policies);
+
+  const localizedSlugs = policyPage.localizations?.reduce(
     (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = 'data-catalogue-page';
+      acc[localization.locale] = 'policy-page';
       return acc;
     },
-    { [params.locale]: 'data-catalogue-page' }
+    { [params.locale]: 'policy-page' }
   );
 
   return (
@@ -61,15 +64,14 @@ export default async function DataCatalogues(props: {
       <Container className="flex flex-col items-center justify-between pb-20">
         <div className="relative z-20 py-10 md:pt-12">
           <h1 className="mt-4 w-full max-w-3xl text-5xl text-center">
-            Enabling <span className="text-green-600">data-driven</span> climate
-            finance for a sustainable future
+            {policyPage.heading}
           </h1>
+          {policyPage.sub_heading && (
+            <p className="text-[#8B9395] mt-4">{policyPage.sub_heading}</p>
+          )}
         </div>
 
-        <DataCatalogueRows
-          dataCatalogues={dataCatalogues.data}
-          locale={params.locale}
-        />
+        <PolicyRows policies={policies.data} locale={params.locale} />
       </Container>
     </div>
   );

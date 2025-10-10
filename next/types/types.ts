@@ -53,6 +53,7 @@ export interface Product {
 
 export interface DataCatalogue {
   id: number;
+  documentId: number;
   title: string;
   slug: string;
   description: string;
@@ -60,11 +61,23 @@ export interface DataCatalogue {
   image: Media;
 }
 
-export interface Toolkits {
+export interface Policy {
   documentId: number;
   id: number;
   title: string;
   description: string;
   attachment: Media;
   createdAt: string;
+}
+
+export interface Video {
+  documentId: number;
+  id: number;
+  title: string;
+  description: string;
+  url: string;
+  createdAt: string;
+  media: Media;
+  thumbnail: Media;
+  duration: string;
 }

@@ -85,7 +85,7 @@ export const DataCatalogueRows = ({
           results.map((dataCatalogue, index) => (
             <DataCatalogueItem
               dataCatalogue={dataCatalogue}
-              key={dataCatalogue.slug + index}
+              key={dataCatalogue.documentId}
               locale={locale}
               canDownload
               featured={index < 2}
