@@ -12,14 +12,14 @@
       "relation": "oneToOne",
       "target": "api::logo.logo"
     },
-    "copyright": {
-      "type": "blocks"
-    },
     "email": {
       "type": "email"
     },
     "website": {
       "type": "string"
+    },
+    "copyright": {
+      "type": "richtext"
     },
     "links_1": {
       "type": "component",

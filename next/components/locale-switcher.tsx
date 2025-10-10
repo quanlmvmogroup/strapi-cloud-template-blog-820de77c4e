@@ -1,20 +1,16 @@
 'use client';
 
-import Image from 'next/image';
+import { ArrowDown, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import { useSlugContext } from '@/app/context/SlugContext';
-import { cn } from '@/lib/utils';
 
 export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const { state } = useSlugContext();
@@ -46,37 +42,40 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
 
   return (
     <div className="flex gap-2 p-1 rounded-md">
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <div className="flex gap-2 items-center">
-            <img
-              src={`/flags/${currentLocale}.png`}
-              alt={currentLocale}
-              className="size-4 flex-none"
-            />
-            {currentLocale.toUpperCase()}
-          </div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          {!pathname.includes('/products/') &&
-            Object.keys(localizedSlugs).map((locale) => (
-              <DropdownMenuItem key={locale}>
-                <Link
-                  key={locale}
-                  href={generateLocalizedPath(locale)}
-                  className="flex gap-2"
-                >
-                  <img
-                    src={`/flags/${locale}.png`}
-                    alt={locale}
-                    className="size-4 flex-none"
-                  />
-                  {locale.toUpperCase()}
-                </Link>
-              </DropdownMenuItem>
-            ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div className="bg-white px-1 py-[2px] rounded-full flex items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <div className="flex gap-1 items-center text-xs">
+              <img
+                src={`/flags/${currentLocale}.png`}
+                alt={currentLocale}
+                className="size-4 flex-none"
+              />
+              <div>{currentLocale.toUpperCase()}</div>
+              <ChevronDown size={16} />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {!pathname.includes('/products/') &&
+              Object.keys(localizedSlugs).map((locale) => (
+                <DropdownMenuItem key={locale}>
+                  <Link
+                    key={locale}
+                    href={generateLocalizedPath(locale)}
+                    className="flex gap-2"
+                  >
+                    <img
+                      src={`/flags/${locale}.png`}
+                      alt={locale}
+                      className="size-4 flex-none"
+                    />
+                    {locale.toUpperCase()}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "data_catalogue_pages",
+  "info": {
+    "singularName": "data-catalogue-page",
+    "pluralName": "data-catalogue-pages",
+    "displayName": "/data-catalogues"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "sub_heading": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

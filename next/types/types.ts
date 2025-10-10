@@ -33,3 +33,12 @@ export interface Product {
   images: any[];
   categories?: any[];
 }
+
+export interface DataCatalogue {
+  id: number;
+  title: string;
+  slug: string;
+  description: string;
+  tags: string;
+  image: any;
+}

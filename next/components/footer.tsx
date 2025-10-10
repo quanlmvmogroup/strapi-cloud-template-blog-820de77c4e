@@ -1,6 +1,10 @@
+import { MailIcon } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 import React from 'react';
+import Markdown from 'react-markdown';
 
+import { MailFill, PlanetLine } from './icons/illustrations';
+import { LocaleSwitcher } from './locale-switcher';
 import { Logo } from '@/components/logo';
 
 export const Footer = async ({
@@ -11,61 +15,63 @@ export const Footer = async ({
   locale: string;
 }) => {
   return (
-    <div className="relative">
-      <div className="border-t border-neutral-900 px-8 pt-20 pb-32 relative bg-primary">
-        <div className="max-w-7xl mx-auto text-sm text-neutral-500 flex sm:flex-row flex-col justify-between items-start ">
+    <div className="relative mt-32">
+      <div className="bg-green-700 rounded-t-[20px] py-10 px-16">
+        <div className="max-w-7xl mx-auto text-sm flex sm:flex-row flex-col justify-between items-start text-white">
           <div>
             <div className="mr-4  md:flex mb-4">
               {data?.logo?.image && <Logo image={data?.logo?.image} />}
             </div>
-            <div className="max-w-xs">{data?.description}</div>
-            <div className="mt-4">{data?.copyright}</div>
-            <div className="mt-10">
-              Designed and Developed by{' '}
-              <a className="text-white underline" href="https://aceternity.com">
-                Aceternity
-              </a>{' '}
-              &{' '}
-              <a className="text-white underline" href="https://strapi.io">
-                Strapi
-              </a>
-            </div>
-            <div className="mt-2">
-              built with{' '}
-              <a className="text-white underline" href="https://strapi.io">
-                Strapi
-              </a>
-              ,{' '}
-              <a className="text-white underline" href="https://nextjs.org">
-                Next.js
-              </a>
-              ,{' '}
-              <a
-                className="text-white underline"
-                href="https://tailwindcss.com"
-              >
-                Tailwind CSS
-              </a>
-              ,{' '}
-              <a
-                className="text-white underline"
-                href="https://framer.com/motion"
-              >
-                Motion Animation Lib
-              </a>
-              , and{' '}
-              <a
-                className="text-white underline"
-                href="https://ui.aceternity.com"
-              >
-                Aceternity UI
-              </a>
-            </div>
+            {data.email && (
+              <div className="text-xs flex gap-2 mb-3">
+                <div className="bg-white size-4 rounded-full flex items-center justify-center">
+                  <MailFill />
+                </div>
+                <div className="font-medium">{data.email}</div>
+              </div>
+            )}
+            {data.email && (
+              <div className="text-xs flex gap-2">
+                <div className="bg-white size-4 rounded-full flex items-center justify-center">
+                  <PlanetLine />
+                </div>
+                <div className="font-medium">{data.website}</div>
+              </div>
+            )}
           </div>
-          <div className="grid grid-cols-3 gap-10 items-start mt-10 md:mt-0">
-            <LinkSection links={data?.links_1} locale={locale} />
-            <LinkSection links={data?.links_2} locale={locale} />
-            <LinkSection links={data?.links_3} locale={locale} />
+          <div className="grid grid-cols-3 gap-24 items-start mt-10 md:mt-0">
+            {data?.links_1 && data?.links_1.length > 0 && (
+              <div>
+                <div className="text-white/70 text-lg font-medium">
+                  Resources
+                </div>
+                <LinkSection links={data?.links_1} locale={locale} />
+              </div>
+            )}
+            {data?.links_2 && data?.links_2.length > 0 && (
+              <div>
+                <div className="text-white/70 text-lg font-medium">
+                  Resources
+                </div>
+                <LinkSection links={data?.links_2} locale={locale} />
+              </div>
+            )}
+            {data?.links_3 && data?.links_3.length > 0 && (
+              <div>
+                <div className="text-white/70 text-lg font-medium">
+                  Resources
+                </div>
+                <LinkSection links={data?.links_3} locale={locale} />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="mb-6 mt-12">
+          <LocaleSwitcher currentLocale={locale} />
+        </div>
+        <div className=" border-white/30 border-t-[0.5px]">
+          <div className=" text-white text-xs font-medium mt-6">
+            <Markdown>{data?.copyright}</Markdown>
           </div>
         </div>
       </div>
@@ -84,8 +90,8 @@ const LinkSection = ({
     {links.map((link) => (
       <Link
         key={link.text}
-        className="transition-colors hover:text-neutral-400 text-muted text-xs sm:text-sm"
-        href={`${link.URL.startsWith('http') ? '' : `/${locale}`}${link.URL}`}
+        className="transition-colors hover:text-neutral-400 text-white  text-lg font-medium"
+        href={`${link.URL?.startsWith('http') ? '' : `/${locale}`}${link.URL ?? ''}`}
       >
         {link.text}
       </Link>

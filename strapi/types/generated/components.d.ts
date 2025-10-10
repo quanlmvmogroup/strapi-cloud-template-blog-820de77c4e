@@ -89,6 +89,22 @@ export interface DynamicZoneCta extends Struct.ComponentSchema {
   };
 }
 
+export interface DynamicZoneDataCatalogues extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_data_catalogues';
+  info: {
+    displayName: 'Data_Catalogues';
+    icon: 'stack';
+  };
+  attributes: {
+    data_catalogue: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::data-catalogue.data-catalogue'
+    >;
+    heading: Schema.Attribute.String;
+    sub_heading: Schema.Attribute.String;
+  };
+}
+
 export interface DynamicZoneFaq extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_faqs';
   info: {
@@ -150,8 +166,11 @@ export interface DynamicZoneHero extends Struct.ComponentSchema {
   };
   attributes: {
     CTAs: Schema.Attribute.Component<'shared.button', true>;
-    heading: Schema.Attribute.Blocks;
-    sub_heading: Schema.Attribute.Blocks;
+    heading: Schema.Attribute.RichText;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    partners: Schema.Attribute.Relation<'oneToMany', 'api::partner.partner'>;
+    readmore: Schema.Attribute.Component<'shared.link', false>;
+    sub_heading: Schema.Attribute.RichText;
   };
 }
 
@@ -238,6 +257,19 @@ export interface DynamicZoneRelatedProducts extends Struct.ComponentSchema {
   };
 }
 
+export interface DynamicZoneResources extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_resources';
+  info: {
+    displayName: 'Resources';
+  };
+  attributes: {
+    heading: Schema.Attribute.RichText;
+    readmore: Schema.Attribute.Component<'shared.link', false>;
+    resources: Schema.Attribute.Relation<'oneToMany', 'api::resource.resource'>;
+    sub_heading: Schema.Attribute.RichText;
+  };
+}
+
 export interface DynamicZoneTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_testimonials';
   info: {
@@ -263,7 +295,7 @@ export interface GlobalFooter extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
-    copyright: Schema.Attribute.Blocks;
+    copyright: Schema.Attribute.RichText;
     email: Schema.Attribute.Email;
     links_1: Schema.Attribute.Component<'shared.link', true>;
     links_2: Schema.Attribute.Component<'shared.link', true>;
@@ -363,6 +395,14 @@ export interface ItemsRayItems extends Struct.ComponentSchema {
     item_2: Schema.Attribute.String;
     item_3: Schema.Attribute.String;
   };
+}
+
+export interface ItemsTags extends Struct.ComponentSchema {
+  collectionName: 'components_items_tags';
+  info: {
+    displayName: 'tags';
+  };
+  attributes: {};
 }
 
 export interface SharedButton extends Struct.ComponentSchema {
@@ -527,6 +567,7 @@ declare module '@strapi/strapi' {
       'cards.social-media-card': CardsSocialMediaCard;
       'dynamic-zone.brands': DynamicZoneBrands;
       'dynamic-zone.cta': DynamicZoneCta;
+      'dynamic-zone.data-catalogues': DynamicZoneDataCatalogues;
       'dynamic-zone.faq': DynamicZoneFaq;
       'dynamic-zone.features': DynamicZoneFeatures;
       'dynamic-zone.form-next-to-section': DynamicZoneFormNextToSection;
@@ -537,6 +578,7 @@ declare module '@strapi/strapi' {
       'dynamic-zone.pricing': DynamicZonePricing;
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
+      'dynamic-zone.resources': DynamicZoneResources;
       'dynamic-zone.testimonials': DynamicZoneTestimonials;
       'global.footer': GlobalFooter;
       'global.navbar': GlobalNavbar;
@@ -544,6 +586,7 @@ declare module '@strapi/strapi' {
       'items.input': ItemsInput;
       'items.left-navbar-items': ItemsLeftNavbarItems;
       'items.ray-items': ItemsRayItems;
+      'items.tags': ItemsTags;
       'shared.button': SharedButton;
       'shared.form': SharedForm;
       'shared.launches': SharedLaunches;

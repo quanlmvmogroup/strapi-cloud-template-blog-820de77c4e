@@ -1,5 +1,6 @@
 import { MotionProps } from 'framer-motion';
 import React from 'react';
+import Markdown from 'react-markdown';
 import Balancer from 'react-wrap-balancer';
 
 import { cn } from '@/lib/utils';
@@ -25,29 +26,7 @@ export const Subheading = ({
       )}
     >
       <Balancer>
-        {children.map(
-          (
-            part: {
-              type: string;
-              children: { text: string; type?: string }[];
-            },
-            index: number
-          ) => {
-            return (
-              <div key={`hero-${index}`}>
-                {part.children.map((segment: any, segIndex) => {
-                  if (segment.italic) {
-                    return <em key={segIndex}>{segment.text}</em>;
-                  }
-                  if (segment.bold) {
-                    return <strong key={segIndex}>{segment.text}</strong>;
-                  }
-                  return <span key={segIndex}>{segment.text}</span>;
-                })}
-              </div>
-            );
-          }
-        )}
+        <Markdown>{children}</Markdown>
       </Balancer>
     </Tag>
   );

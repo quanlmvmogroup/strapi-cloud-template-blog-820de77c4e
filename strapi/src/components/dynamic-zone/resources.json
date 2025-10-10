@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_dynamic_zone_resources",
+  "info": {
+    "displayName": "Resources"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "richtext"
+    },
+    "sub_heading": {
+      "type": "richtext"
+    },
+    "readmore": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "resources": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::resource.resource"
+    }
+  },
+  "config": {}
+}

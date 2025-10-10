@@ -54,7 +54,10 @@
         "dynamic-zone.cta",
         "dynamic-zone.form-next-to-section",
         "dynamic-zone.faq",
-        "dynamic-zone.media"
+        "dynamic-zone.media",
+        "dynamic-zone.data-catalogues",
+        "dynamic-zone.related-products",
+        "dynamic-zone.resources"
       ]
     }
   }

@@ -9,11 +9,13 @@ import {
 import { Link } from 'next-view-transitions';
 import { useState } from 'react';
 
+import { BlurImage } from '../blur-image';
 import { SearchLineIcon } from '../icons/illustrations';
 import { LocaleSwitcher } from '../locale-switcher';
 import { NavbarItem } from './navbar-item';
 import { Button } from '@/components/elements/button';
 import { Logo } from '@/components/logo';
+import { strapiImage } from '@/lib/strapi/strapiImage';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -40,7 +42,17 @@ export const DesktopNavbar = ({
   return (
     <div className="flex justify-between">
       <div className="flex flex-row gap-2 items-center">
-        <Logo locale={locale} image={logo?.image} />
+        <Link
+          href={`/${locale || 'en'}`}
+          className="font-normal flex space-x-2 items-center text-sm mr-4 text-black relative z-20"
+        >
+          <BlurImage
+            src={strapiImage(logo?.image?.url)}
+            width={36}
+            height={36}
+            alt="Logo"
+          />
+        </Link>
       </div>
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-2 rounded-full border border-[#F5F5F5] p-1">

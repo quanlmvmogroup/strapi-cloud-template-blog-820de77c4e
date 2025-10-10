@@ -10,7 +10,7 @@ export function Media({
   }
 
   return (
-    <div className="w-full px-24">
+    <div className="w-full ">
       {media.map((item, index) => {
         const src = getStrapiMedia(item.url);
         if (src) {

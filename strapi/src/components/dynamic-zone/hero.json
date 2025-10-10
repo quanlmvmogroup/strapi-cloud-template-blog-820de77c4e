@@ -8,15 +8,35 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "blocks"
+      "type": "richtext"
     },
     "sub_heading": {
-      "type": "blocks"
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     },
     "CTAs": {
       "type": "component",
       "component": "shared.button",
       "repeatable": true
+    },
+    "readmore": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": false
+    },
+    "partners": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::partner.partner"
     }
   }
 }

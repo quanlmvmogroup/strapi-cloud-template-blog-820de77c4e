@@ -49,6 +49,12 @@ const componentMapping: { [key: string]: any } = {
   'dynamic-zone.media': dynamic(() =>
     import('./media').then((mod) => mod.Media)
   ),
+  'dynamic-zone.data-catalogues': dynamic(() =>
+    import('./data-catalogues').then((mod) => mod.DataCatalogues)
+  ),
+  'dynamic-zone.resources': dynamic(() =>
+    import('./resources').then((mod) => mod.Resources)
+  ),
 };
 
 const DynamicZoneManager: React.FC<Props> = ({ dynamicZone, locale }) => {
