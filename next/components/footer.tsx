@@ -66,10 +66,10 @@ export const Footer = async ({
             )}
           </div>
         </div>
-        <div className="mb-6 mt-12">
+        <div className="mb-6 mt-12 max-w-7xl mx-auto text-sm flex sm:flex-row flex-col justify-between items-start text-white">
           <LocaleSwitcher currentLocale={locale} />
         </div>
-        <div className=" border-white/30 border-t-[0.5px]">
+        <div className=" border-white/30 border-t-[0.5px] max-w-7xl mx-auto text-sm flex sm:flex-row flex-col justify-between items-start text-white">
           <div className=" text-white text-xs font-medium mt-6">
             <Markdown>{data?.copyright}</Markdown>
           </div>
