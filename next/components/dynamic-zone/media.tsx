@@ -20,6 +20,7 @@ export function Media({
                 <img
                   src={src}
                   alt={item.alternativeText || `Media image ${index + 1}`}
+                  className="w-full"
                 />
               </div>
             );
