@@ -45,7 +45,7 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
       <div className="bg-white px-1 py-[2px] rounded-full flex items-center">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <div className="flex gap-1 items-center text-xs">
+            <div className="flex gap-1 items-center text-xs text-black">
               <img
                 src={`/flags/${currentLocale}.png`}
                 alt={currentLocale}
