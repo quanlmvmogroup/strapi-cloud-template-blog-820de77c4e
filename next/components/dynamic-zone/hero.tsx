@@ -32,8 +32,6 @@ export const Hero = ({
     documentId: string;
   }[];
 }) => {
-  console.log('🚀 ~ hero.tsx:28 ~ Hero ~ heading:', heading);
-
   return (
     <div className="mb-12">
       <Heading
