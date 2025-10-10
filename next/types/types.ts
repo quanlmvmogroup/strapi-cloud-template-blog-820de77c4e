@@ -47,7 +47,7 @@ export interface Product {
   plans: any[];
   perks: any[];
   featured?: boolean;
-  images: Media[];
+  images: any[];
   categories?: any[];
 }
 
