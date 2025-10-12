@@ -46,7 +46,7 @@ export default async function Videos(props: {
       <AmbientColor />
       <Container className="flex flex-col items-center justify-between pb-20">
         <div className="relative z-20 py-10 md:pt-12">
-          <h1 className="mt-4 w-full max-w-3xl text-5xl text-center">
+          <h1 className="mt-4 w-full text-5xl text-center">
             {videosPage.heading}
           </h1>
           {videosPage.sub_heading && (

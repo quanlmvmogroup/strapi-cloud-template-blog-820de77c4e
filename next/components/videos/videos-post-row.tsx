@@ -25,6 +25,7 @@ import {
   TableHeader,
   TableRow,
 } from '../ui/table';
+import { getYouTubeVideoId } from '@/lib/utils';
 import { Video } from '@/types/types';
 
 export const VideoPostRows = ({
@@ -35,7 +36,12 @@ export const VideoPostRows = ({
   locale: string;
 }) => {
   const [search, setSearch] = useState('');
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openVideo, setOpenVideo] = useState<string | undefined>();
+
+  console.log(
+    '🚀 ~ videos-post-row.tsx:40 ~ VideoPostRows ~ openVideo:',
+    openVideo
+  );
 
   const searcher = new FuzzySearch(videos, ['title'], {
     caseSensitive: false,
@@ -75,10 +81,19 @@ export const VideoPostRows = ({
               <div key={video.documentId} className="">
                 {video.thumbnail && (
                   <div className="w-full aspect-video relative max-h-[500px]">
-                    <button className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-green-50 rounded-full py-2 px-3 hover:bg-opacity-75 transition flex items-center gap-2">
-                      <PlayIcon className="fill-green-600 stroke-none" />
-                      <span className="text-sm text-green-600">Play video</span>
-                    </button>
+                    {(video.media?.url || video.youtube_url) && (
+                      <button
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-green-50 rounded-full py-2 px-3 hover:bg-opacity-75 transition flex items-center gap-2"
+                        onClick={() => {
+                          setOpenVideo(video.media?.url ?? video.youtube_url);
+                        }}
+                      >
+                        <PlayIcon className="fill-green-600 stroke-none" />
+                        <span className="text-sm text-green-600">
+                          Play video
+                        </span>
+                      </button>
+                    )}
                     <Image
                       src={String(getStrapiMedia(video.thumbnail.url))}
                       alt={video.title}
@@ -90,10 +105,12 @@ export const VideoPostRows = ({
                 )}
                 <h3 className="text-2xl mt-4">{video.title}</h3>
                 <div className="flex mt-3">
-                  <div className="bg-[#F4F4F4] py-1 px-2 rounded-full text-xs flex items-center gap-1 text-[#8B9395]">
-                    <Play size={16} className="stroke-none fill-black" />
-                    {video.duration}
-                  </div>
+                  {video.duration && (
+                    <div className="bg-[#F4F4F4] py-1 px-2 rounded-full text-xs flex items-center gap-1 text-[#8B9395]">
+                      <Play size={16} className="stroke-none fill-black" />
+                      {video.duration}
+                    </div>
+                  )}
                   <div className="bg-[#F4F4F4] py-1 px-2 rounded-full text-xs flex items-center gap-1 text-[#8B9395]">
                     <CalendarDays size={16} className="stroke-black" />
                     {formatDate(new Date(video.createdAt), 'dd/MM/yyyy')}
@@ -105,36 +122,26 @@ export const VideoPostRows = ({
         )}
       </div>
 
-      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+      <Dialog
+        open={Boolean(openVideo)}
+        onOpenChange={() => setOpenVideo(undefined)}
+      >
         <DialogContent className="!bg-white max-w-4xl">
-          <DialogHeader>
-            {/* <DialogTitle>{video.title}</DialogTitle> */}
-          </DialogHeader>
-          <div>
-            <div className="flex gap-2 text-xs mb-2">
-              <div className="py-1 px-2 bg-blue-100 text-blue-600 rounded">
-                Energy
-              </div>
-              <div className="py-1 px-2 bg-green-100 text-green-600 rounded">
-                API
-              </div>
+          <DialogTitle></DialogTitle>
+          {openVideo?.includes('strapiapp.com') ? (
+            <video controls className="w-full aspect-video" src={openVideo} />
+          ) : (
+            <div className="w-full aspect-video">
+              <iframe
+                width="100%"
+                height="100%"
+                src={`https://www.youtube.com/embed/${String(getYouTubeVideoId(openVideo!))}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </div>
-          </div>
-          <div className="flex justify-between">
-            <button
-              onClick={() => setOpenDialog(false)}
-              className="border border-gray-300 py-2 px-5 rounded-lg"
-            >
-              Close
-            </button>
-            <button
-              onClick={() => setOpenDialog(false)}
-              className="border border-gray-300 py-2 px-5 rounded-lg flex items-center gap-2 bg-primary text-white"
-            >
-              <ChartBar size={20} />
-              Visualize
-            </button>
-          </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>

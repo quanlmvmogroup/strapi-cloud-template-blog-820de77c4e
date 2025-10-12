@@ -137,7 +137,7 @@ export const PolicyRows = ({
                       </div>
                     </TableCell>
                     <TableCell>
-                      {formatDate(policies.createdAt, 'dd MMM yyyy')}
+                      {formatDate(policies.publication_date, 'dd MMM yyyy')}
                     </TableCell>
                     <TableCell>
                       <a

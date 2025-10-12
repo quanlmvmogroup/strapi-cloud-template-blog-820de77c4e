@@ -68,6 +68,7 @@ export interface Policy {
   description: string;
   attachment: Media;
   createdAt: string;
+  publication_date: string;
 }
 
 export interface Video {
@@ -77,7 +78,8 @@ export interface Video {
   description: string;
   url: string;
   createdAt: string;
-  media: Media;
+  media?: Media;
   thumbnail: Media;
   duration: string;
+  youtube_url?: string;
 }

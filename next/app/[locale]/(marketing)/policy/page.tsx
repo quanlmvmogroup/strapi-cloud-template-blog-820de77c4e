@@ -28,7 +28,7 @@ export async function generateMetadata(props: {
   return metadata;
 }
 
-export default async function Toolkits(props: {
+export default async function Policy(props: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const params = await props.params;
@@ -39,8 +39,9 @@ export default async function Toolkits(props: {
     },
     true
   );
+
   const policies = await fetchContentType(
-    'policy-document',
+    'policy-documents',
     {
       filters: { locale: params.locale },
     },

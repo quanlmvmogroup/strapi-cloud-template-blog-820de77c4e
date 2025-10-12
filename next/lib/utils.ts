@@ -19,3 +19,35 @@ export const formatNumber = (
     maximumFractionDigits: 2,
   }).format(number);
 };
+
+export const getYouTubeVideoId = (url: string): string | null => {
+  try {
+    const u = new URL(url);
+
+    if (u.hostname.includes('youtube.com')) {
+      if (u.pathname === '/watch') {
+        return u.searchParams.get('v');
+      }
+
+      const liveMatch = u.pathname.match(/^\/live\/([^/]+)/);
+      if (liveMatch) {
+        return liveMatch[1] ?? null;
+      }
+
+      // Trường hợp /embed/VIDEO_ID
+      const embedMatch = u.pathname.match(/^\/embed\/([^/]+)/);
+      if (embedMatch) {
+        return embedMatch[1] ?? null;
+      }
+    }
+
+    if (u.hostname === 'youtu.be') {
+      console.log('🚀 ~ utils.ts:46 ~ getYouTubeVideoId ~ u:', u.pathname);
+      return u.pathname.split('/')[1] ?? null;
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+};
