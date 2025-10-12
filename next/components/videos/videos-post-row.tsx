@@ -38,11 +38,6 @@ export const VideoPostRows = ({
   const [search, setSearch] = useState('');
   const [openVideo, setOpenVideo] = useState<string | undefined>();
 
-  console.log(
-    '🚀 ~ videos-post-row.tsx:40 ~ VideoPostRows ~ openVideo:',
-    openVideo
-  );
-
   const searcher = new FuzzySearch(videos, ['title'], {
     caseSensitive: false,
   });

@@ -48,8 +48,6 @@ export default async function Policy(props: {
     false
   );
 
-  console.log('🚀 ~ page.tsx:50 ~ Toolkits ~ policies:', policies);
-
   const localizedSlugs = policyPage.localizations?.reduce(
     (acc: Record<string, string>, localization: any) => {
       acc[localization.locale] = 'policy-page';

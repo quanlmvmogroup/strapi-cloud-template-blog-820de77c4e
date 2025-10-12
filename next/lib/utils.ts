@@ -42,7 +42,6 @@ export const getYouTubeVideoId = (url: string): string | null => {
     }
 
     if (u.hostname === 'youtu.be') {
-      console.log('🚀 ~ utils.ts:46 ~ getYouTubeVideoId ~ u:', u.pathname);
       return u.pathname.split('/')[1] ?? null;
     }
 

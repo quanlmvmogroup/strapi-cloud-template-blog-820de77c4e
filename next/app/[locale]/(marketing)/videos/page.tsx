@@ -30,8 +30,6 @@ export default async function Videos(props: {
     false
   );
 
-  console.log('🚀 ~ page.tsx:33 ~ Videos ~ videos:', videos);
-
   const localizedSlugs = videosPage.localizations?.reduce(
     (acc: Record<string, string>, localization: any) => {
       acc[localization.locale] = 'videos-page';
