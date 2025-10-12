@@ -27,11 +27,17 @@ import {
 } from '../ui/table';
 import { Media, Policy } from '@/types/types';
 
-const handleDownload = (media: Media) => {
+const handleDownload = async (media: Media) => {
+  const response = await fetch(media.url);
+  const blob = await response.blob();
+
   const link = document.createElement('a');
-  link.href = media.url;
-  link.download = media.name;
+  link.href = URL.createObjectURL(blob);
+  link.download = media.name || 'file.pdf';
   link.click();
+
+  // Giải phóng URL object để tránh leak bộ nhớ
+  URL.revokeObjectURL(link.href);
 };
 
 const MineType: {
