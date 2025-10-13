@@ -26,11 +26,6 @@
         "videos",
         "audios"
       ]
-    },
-    "events": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::event.event"
     }
   }
 }
