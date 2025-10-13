@@ -166,11 +166,11 @@ export interface DynamicZoneHero extends Struct.ComponentSchema {
   };
   attributes: {
     CTAs: Schema.Attribute.Component<'shared.button', true>;
-    heading: Schema.Attribute.RichText;
+    heading: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     partners: Schema.Attribute.Relation<'oneToMany', 'api::partner.partner'>;
     readmore: Schema.Attribute.Component<'shared.link', false>;
-    sub_heading: Schema.Attribute.RichText;
+    sub_heading: Schema.Attribute.String;
   };
 }
 

@@ -8,10 +8,10 @@
   "options": {},
   "attributes": {
     "heading": {
-      "type": "richtext"
+      "type": "string"
     },
     "sub_heading": {
-      "type": "richtext"
+      "type": "string"
     },
     "image": {
       "type": "media",

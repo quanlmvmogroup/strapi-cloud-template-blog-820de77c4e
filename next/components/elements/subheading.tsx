@@ -26,7 +26,11 @@ export const Subheading = ({
       )}
     >
       <Balancer>
-        <Markdown>{children}</Markdown>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: children,
+          }}
+        />
       </Balancer>
     </Tag>
   );

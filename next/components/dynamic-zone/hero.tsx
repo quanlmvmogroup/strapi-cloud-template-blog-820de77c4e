@@ -2,12 +2,12 @@
 
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Markdown from 'react-markdown';
 
 import { Button } from '../elements/button';
 import { Heading } from '../elements/heading';
 import { Subheading } from '../elements/subheading';
 import { StrapiImage } from '../ui/strapi-image';
+import { Media } from '@/types/types';
 
 export const Hero = ({
   heading,
@@ -16,6 +16,7 @@ export const Hero = ({
   locale,
   readmore,
   partners,
+  image,
 }: {
   heading: string;
   sub_heading: string;
@@ -31,14 +32,29 @@ export const Hero = ({
     website: string;
     documentId: string;
   }[];
+  image?: Media;
 }) => {
   return (
     <div className="mb-12">
+      {image && (
+        <div className="relative size-20 mx-auto mt-10">
+          <StrapiImage
+            src={image.url}
+            layout="fill"
+            objectFit="cover"
+            alt={heading}
+          />
+        </div>
+      )}
       <Heading
         as="h1"
         className="text-4xl md:text-4xl lg:text-5xl max-w-3xl mx-auto text-center mt-16 relative z-10  [&_a]:text-primary font-normal [&_h3]:text-3xl"
       >
-        <Markdown>{heading}</Markdown>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: heading,
+          }}
+        />
       </Heading>
       {sub_heading && (
         <Subheading className="text-center mt-2 md:mt-5 text-base md:text-xl max-w-3xl mx-auto relative z-10 text-[#7F8489] [&_h4]:!text-base [&_h4]:!-mt-3">
