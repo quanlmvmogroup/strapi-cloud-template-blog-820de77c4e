@@ -405,6 +405,35 @@ export interface ItemsTags extends Struct.ComponentSchema {
   attributes: {};
 }
 
+export interface SharedAgenda extends Struct.ComponentSchema {
+  collectionName: 'components_shared_agenda';
+  info: {
+    displayName: 'Agenda';
+  };
+  attributes: {
+    highlight_video: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    items: Schema.Attribute.Component<'shared.agenda-item', true>;
+    title: Schema.Attribute.String;
+    video_recordings_url: Schema.Attribute.Text;
+  };
+}
+
+export interface SharedAgendaItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_agenda_items';
+  info: {
+    displayName: 'Agenda Item';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    end_time: Schema.Attribute.Time;
+    speakers: Schema.Attribute.Relation<'oneToMany', 'api::speaker.speaker'>;
+    start_time: Schema.Attribute.Time;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedButton extends Struct.ComponentSchema {
   collectionName: 'components_shared_buttons';
   info: {
@@ -587,6 +616,8 @@ declare module '@strapi/strapi' {
       'items.left-navbar-items': ItemsLeftNavbarItems;
       'items.ray-items': ItemsRayItems;
       'items.tags': ItemsTags;
+      'shared.agenda': SharedAgenda;
+      'shared.agenda-item': SharedAgendaItem;
       'shared.button': SharedButton;
       'shared.form': SharedForm;
       'shared.launches': SharedLaunches;

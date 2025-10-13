@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_shared_agenda",
+  "info": {
+    "displayName": "Agenda"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "highlight_video": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "video_recordings_url": {
+      "type": "text"
+    },
+    "items": {
+      "type": "component",
+      "component": "shared.agenda-item",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

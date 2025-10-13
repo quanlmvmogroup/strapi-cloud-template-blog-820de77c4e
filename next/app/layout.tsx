@@ -8,13 +8,11 @@ import Script from 'next/script';
 
 import { SlugProvider } from './context/SlugContext';
 import AccessibilityWidget from '@/components/AccessibilityWidget';
+import MainLayout from '@/components/main-layout';
 import { Preview } from '@/components/preview';
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#06b6d4' },
-    { media: '(prefers-color-scheme: dark)', color: '#06b6d4' },
-  ],
+  themeColor: [{ media: '(prefers-color-scheme: light)', color: '#06b6d4' }],
 };
 
 export async function generateStaticParams() {
@@ -30,7 +28,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Preview />
-        <SlugProvider>{children}</SlugProvider>
+        <SlugProvider>
+          <MainLayout>{children}</MainLayout>
+        </SlugProvider>
         <AccessibilityWidget />
       </body>
     </html>

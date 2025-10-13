@@ -1,18 +1,22 @@
-import { type Metadata } from 'next';
+import { isAfter } from 'date-fns';
+import Link from 'next/link';
 
 import ClientSlugHandler from '../ClientSlugHandler';
 import { Container } from '@/components/container';
-import { DataCatalogueRows } from '@/components/data-catalogues/data-catalogues-post-rows';
 import { AmbientColor } from '@/components/decorations/ambient-color';
-import { Heading } from '@/components/elements/heading';
-import { Subheading } from '@/components/elements/subheading';
-import { PolicyRows } from '@/components/policy/policy-post-row';
-import { VideoPostRows } from '@/components/videos/videos-post-row';
-import { generateMetadataObject } from '@/lib/shared/metadata';
+import { EventPostRows } from '@/components/events/events-post-row';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import { getStrapiMedia } from '@/components/ui/strapi-image';
 import fetchContentType from '@/lib/strapi/fetchContentType';
 
 export default async function Events(props: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string }>;
 }) {
   const params = await props.params;
   const eventsPage = await fetchContentType(
@@ -22,7 +26,7 @@ export default async function Events(props: {
     },
     true
   );
-  const videos = await fetchContentType(
+  const events = await fetchContentType(
     'events',
     {
       filters: { locale: params.locale },
@@ -51,8 +55,61 @@ export default async function Events(props: {
             <p className="text-[#8B9395] mt-4">{eventsPage.sub_heading}</p>
           )}
         </div>
+        {eventsPage.events.length > 0 && (
+          <Carousel className="relative">
+            <CarouselContent>
+              {eventsPage.events.map((event, index) => {
+                const isAfterEvent = isAfter(new Date(), event.start_datetime);
+                return (
+                  <CarouselItem
+                    key={index}
+                    className="overflow-hidden rounded-lg"
+                  >
+                    <div className="relative">
+                      <div className="absolute text-white w-1/2 left-1/2 top-1/2 -translate-y-1/2 pl-20 pr-10 flex flex-col gap-1">
+                        <div>
+                          <span className="bg-white text-black rounded-full py-1 px-2 text-xs">
+                            {isAfterEvent ? 'Past Event' : 'Upcoming'}
+                          </span>
+                        </div>
+                        <Link href={`/events/${event.slug}`}>
+                          <div className="text-2xl">{event.title}</div>
+                        </Link>
+                        <div className="line-clamp-4 text-sm">
+                          {event.description}
+                        </div>
+                        {isAfterEvent && event.report && (
+                          <div>
+                            <a
+                              href={String(getStrapiMedia(event.report.url))}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mt-2 inline-block rounded-full bg-green-50 px-3 py-2 text-xs font-semibold text-green-600 "
+                            >
+                              View Report
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                      <img
+                        src={String(getStrapiMedia(event.image.url))}
+                        alt={
+                          event.image.alternativeText ||
+                          `Event image ${index + 1}`
+                        }
+                        className="w-full rounded-lg"
+                      />
+                    </div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="left-3 !bg-black/100 !opacity-100 text-white" />
+            <CarouselNext className="right-3 !bg-black/100 !opacity-100 text-white" />
+          </Carousel>
+        )}
 
-        <VideoPostRows videos={videos.data} locale={params.locale} />
+        <EventPostRows events={events.data} locale={params.locale} />
       </Container>
     </div>
   );
