@@ -36,7 +36,6 @@ const handleDownload = async (media: Media) => {
   link.download = media.name || 'file.pdf';
   link.click();
 
-  // Giải phóng URL object để tránh leak bộ nhớ
   URL.revokeObjectURL(link.href);
 };
 

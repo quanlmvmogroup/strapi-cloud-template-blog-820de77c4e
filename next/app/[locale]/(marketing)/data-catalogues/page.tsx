@@ -60,10 +60,12 @@ export default async function DataCatalogues(props: {
       <AmbientColor />
       <Container className="flex flex-col items-center justify-between pb-20">
         <div className="relative z-20 py-10 md:pt-12">
-          <h1 className="mt-4 w-full max-w-3xl text-5xl text-center">
-            Enabling <span className="text-green-600">data-driven</span> climate
-            finance for a sustainable future
-          </h1>
+          <h1
+            className="mt-4 w-full max-w-3xl text-5xl text-center"
+            dangerouslySetInnerHTML={{
+              __html: dataCataloguesPage.heading,
+            }}
+          ></h1>
         </div>
 
         <DataCatalogueRows

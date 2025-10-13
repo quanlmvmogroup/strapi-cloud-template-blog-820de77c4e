@@ -32,6 +32,9 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
     if (localizedSlugs[locale]) {
       segments[1] = locale; // Replace the locale
       segments[segments.length - 1] = localizedSlugs[locale]; // Replace slug if available
+      if (segments[segments.length - 1] === 'data-catalogue-page') {
+        segments[segments.length - 1] = 'data-catalogues';
+      }
       return segments.join('/');
     }
 
