@@ -4,7 +4,10 @@ import { Locale, i18n } from '@/i18n.config';
 
 import './globals.css';
 
+import Script from 'next/script';
+
 import { SlugProvider } from './context/SlugContext';
+import AccessibilityWidget from '@/components/AccessibilityWidget';
 import { Preview } from '@/components/preview';
 
 export const viewport: Viewport = {
@@ -28,6 +31,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Preview />
         <SlugProvider>{children}</SlugProvider>
+        <AccessibilityWidget />
       </body>
     </html>
   );
