@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  AnimatePresence,
-  motion,
-  useMotionValueEvent,
-  useScroll,
-} from 'framer-motion';
-import { Search, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Link } from 'next-view-transitions';
 import { useEffect, useRef, useState } from 'react';
 
@@ -14,9 +8,7 @@ import { BlurImage } from '../blur-image';
 import { SearchLineIcon } from '../icons/illustrations';
 import { LocaleSwitcher } from '../locale-switcher';
 import { NavbarItem } from './navbar-item';
-import SearchBox from './search-box';
 import { Button } from '@/components/elements/button';
-import { Logo } from '@/components/logo';
 import { meiliClient } from '@/lib/meilisearch';
 import { strapiImage } from '@/lib/strapi/strapiImage';
 import { cn } from '@/lib/utils';
@@ -70,7 +62,7 @@ export const DesktopNavbar = ({
       }
       setLoading(true);
       try {
-        const index = meiliClient.index('data-catalogue'); // thay "pages" bằng index của bạn
+        const index = meiliClient.index('data-catalogue');
         const res = await index.search(debouncedQuery);
         setResults(res.hits);
       } catch (err) {
