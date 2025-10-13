@@ -132,13 +132,7 @@ export const PolicyRows = ({
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1 items-center">
-                        <img
-                          src={`/mine-types/${MineType[policies.attachment.mime]?.icon}`}
-                          alt={MineType[policies.attachment.mime]?.text}
-                          width={16}
-                          height={16}
-                        />
-                        <span>{MineType[policies.attachment.mime]?.text}</span>
+                        {policies.type}
                       </div>
                     </TableCell>
                     <TableCell>

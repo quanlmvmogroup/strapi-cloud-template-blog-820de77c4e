@@ -50,17 +50,13 @@ export const Footer = async ({
             )}
             {data?.links_2 && data?.links_2.length > 0 && (
               <div>
-                <div className="text-white/70 text-lg font-medium">
-                  Resources
-                </div>
+                <div className="text-white/70 text-lg font-medium">Company</div>
                 <LinkSection links={data?.links_2} locale={locale} />
               </div>
             )}
             {data?.links_3 && data?.links_3.length > 0 && (
               <div>
-                <div className="text-white/70 text-lg font-medium">
-                  Resources
-                </div>
+                <div className="text-white/70 text-lg font-medium">Legal</div>
                 <LinkSection links={data?.links_3} locale={locale} />
               </div>
             )}

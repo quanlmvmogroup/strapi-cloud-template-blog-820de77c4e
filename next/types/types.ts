@@ -69,6 +69,7 @@ export interface Policy {
   attachment: Media;
   createdAt: string;
   publication_date: string;
+  type: string;
 }
 
 export interface Video {
