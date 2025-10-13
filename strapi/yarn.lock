@@ -3341,7 +3341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@strapi/design-system@npm:^2.0.0-rc.12":
+"@strapi/design-system@npm:^2.0.0-rc.12, @strapi/design-system@npm:^2.0.0-rc.14":
   version: 2.0.0-rc.30
   resolution: "@strapi/design-system@npm:2.0.0-rc.30"
   dependencies:
@@ -3454,6 +3454,17 @@ __metadata:
     react-dom: ^17.0.0 || ^18.0.0
     styled-components: ^6.0.0
   checksum: 10c0/b10a9dc38444b6af6d5bf18fa6abb87bd459584f940d496bef84d1c46fb66559ad15a1cc9758329665bd823cc70208255a7b76182033550f3d9f03ce0d942787
+  languageName: node
+  linkType: hard
+
+"@strapi/icons@npm:^2.0.0-rc.14":
+  version: 2.0.0-rc.30
+  resolution: "@strapi/icons@npm:2.0.0-rc.30"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+    styled-components: ^6.0.0
+  checksum: 10c0/b4184358e3a71474f82242085670f58f92785b87581c566d0ac2b2425bcecda5658e0dff4aafc2dfdb8aeddb0fd5c4cef0e8c0a1f21c3adb1e804e5001216c3e
   languageName: node
   linkType: hard
 
@@ -10059,6 +10070,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"meilisearch@npm:0.48.2":
+  version: 0.48.2
+  resolution: "meilisearch@npm:0.48.2"
+  checksum: 10c0/b30d48829980549b6cc509286c57d9b7a8527af12a3e234f93f0bd26bd5967b863df6fa95b2c4b00ec7cb3535ae9ba1dbf136fdda13d47db615d48e71444ce14
+  languageName: node
+  linkType: hard
+
 "memfs@npm:^3.4.1, memfs@npm:^3.4.12":
   version: 3.6.0
   resolution: "memfs@npm:3.6.0"
@@ -13284,6 +13302,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strapi-plugin-meilisearch@npm:^0.13.4":
+  version: 0.13.4
+  resolution: "strapi-plugin-meilisearch@npm:0.13.4"
+  dependencies:
+    "@strapi/design-system": "npm:^2.0.0-rc.14"
+    "@strapi/icons": "npm:^2.0.0-rc.14"
+    meilisearch: "npm:0.48.2"
+  peerDependencies:
+    "@strapi/sdk-plugin": ^5.2.8
+    "@strapi/strapi": ^5.6.0
+    react: ^18.3.1
+    react-dom: ^18.3.1
+    react-router-dom: ^6.29.0
+    styled-components: ^6.1.14
+  checksum: 10c0/827576002c976ab671c8e1d2de817a3ffde477ad07d8d2cbfec0a33ede8fef7721260442679f60d472fd9ec13e19efe7f36c51a209b39cb0a89549a226db1cf1
+  languageName: node
+  linkType: hard
+
 "strapi@workspace:.":
   version: 0.0.0-use.local
   resolution: "strapi@workspace:."
@@ -13302,6 +13338,7 @@ __metadata:
     react-dom: "npm:^18.0.0"
     react-router-dom: "npm:^6.0.0"
     strapi-plugin-all-in-one-accessibility: "npm:^1.0.30"
+    strapi-plugin-meilisearch: "npm:^0.13.4"
     styled-components: "npm:^6.0.0"
     typescript: "npm:^5"
     uuid: "npm:^10.0.0"
