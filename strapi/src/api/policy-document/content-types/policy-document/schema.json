@@ -41,7 +41,8 @@
       "enum": [
         "Policy",
         "Toolkit",
-        "Guideline"
+        "Guideline",
+        "Marketing"
       ]
     },
     "attachment": {

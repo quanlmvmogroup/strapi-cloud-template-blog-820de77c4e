@@ -1230,7 +1230,9 @@ export interface ApiPolicyDocumentPolicyDocument
           localized: true;
         };
       }>;
-    type: Schema.Attribute.Enumeration<['Policy', 'Toolkit', 'Guideline']> &
+    type: Schema.Attribute.Enumeration<
+      ['Policy', 'Toolkit', 'Guideline', 'Marketing']
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
