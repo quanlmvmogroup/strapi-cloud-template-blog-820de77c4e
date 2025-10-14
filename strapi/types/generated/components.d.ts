@@ -105,6 +105,19 @@ export interface DynamicZoneDataCatalogues extends Struct.ComponentSchema {
   };
 }
 
+export interface DynamicZoneEvents extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_events';
+  info: {
+    displayName: 'Events';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'shared.button', false>;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    heading: Schema.Attribute.String;
+    sub_heading: Schema.Attribute.String;
+  };
+}
+
 export interface DynamicZoneFaq extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_faqs';
   info: {
@@ -597,6 +610,7 @@ declare module '@strapi/strapi' {
       'dynamic-zone.brands': DynamicZoneBrands;
       'dynamic-zone.cta': DynamicZoneCta;
       'dynamic-zone.data-catalogues': DynamicZoneDataCatalogues;
+      'dynamic-zone.events': DynamicZoneEvents;
       'dynamic-zone.faq': DynamicZoneFaq;
       'dynamic-zone.features': DynamicZoneFeatures;
       'dynamic-zone.form-next-to-section': DynamicZoneFormNextToSection;

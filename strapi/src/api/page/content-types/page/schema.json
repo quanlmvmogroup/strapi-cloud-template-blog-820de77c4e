@@ -57,7 +57,8 @@
         "dynamic-zone.media",
         "dynamic-zone.data-catalogues",
         "dynamic-zone.related-products",
-        "dynamic-zone.resources"
+        "dynamic-zone.resources",
+        "dynamic-zone.events"
       ]
     }
   }

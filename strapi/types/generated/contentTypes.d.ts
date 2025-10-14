@@ -1178,6 +1178,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'dynamic-zone.data-catalogues',
         'dynamic-zone.related-products',
         'dynamic-zone.resources',
+        'dynamic-zone.events',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
