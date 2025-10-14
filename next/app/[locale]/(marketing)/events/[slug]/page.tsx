@@ -76,12 +76,12 @@ export default async function EventPage(props: {
                       {agenda.items?.map((item: any, idx: number) => {
                         const parsedStartTime = parse(
                           item.start_time,
-                          'HH:mm:ss.SSS',
+                          'HH:mm:ss',
                           new Date()
                         );
                         const parsedEndTime = parse(
-                          item.start_time,
-                          'HH:mm:ss.SSS',
+                          item.end_time,
+                          'HH:mm:ss',
                           new Date()
                         );
 
