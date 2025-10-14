@@ -12,8 +12,6 @@ export function Media({
 }: {
   media: { url: string; alternativeText: string; mime: string }[];
 }) {
-  console.log('🚀 ~ media.tsx:9 ~ Media ~ media:', media);
-
   if (!media || media.length === 0) {
     return null;
   }

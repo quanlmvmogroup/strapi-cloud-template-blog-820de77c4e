@@ -25,13 +25,11 @@ export const Subheading = ({
         className
       )}
     >
-      <Balancer>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: children,
-          }}
-        />
-      </Balancer>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: <Balancer>children</Balancer>,
+        }}
+      />
     </Tag>
   );
 };

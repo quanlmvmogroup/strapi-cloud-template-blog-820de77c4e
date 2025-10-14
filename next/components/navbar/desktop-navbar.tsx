@@ -54,6 +54,7 @@ export const DesktopNavbar = ({
     }, 300);
     return () => clearTimeout(timer);
   }, [query]);
+
   useEffect(() => {
     const search = async () => {
       if (!debouncedQuery) {
@@ -73,6 +74,12 @@ export const DesktopNavbar = ({
 
     search();
   }, [debouncedQuery]);
+
+  const handleCloseSearch = () => {
+    setOpen(false);
+    setQuery('');
+    setResults([]);
+  };
 
   return (
     <div className="flex justify-between">
@@ -148,11 +155,7 @@ export const DesktopNavbar = ({
                 className="flex-1 text-gray-800 placeholder-gray-400 outline-none"
               />
               <button
-                onClick={() => {
-                  setOpen(false);
-                  setQuery('');
-                  setResults([]);
-                }}
+                onClick={handleCloseSearch}
                 className="ml-2 p-1 text-gray-500 hover:text-gray-800"
               >
                 <X className="w-5 h-5" />

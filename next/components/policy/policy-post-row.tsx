@@ -1,16 +1,14 @@
 'use client';
 
+import { events } from '@react-three/fiber';
 import { formatDate } from 'date-fns';
-import FuzzySearch from 'fuzzy-search';
 import { Search } from 'lucide-react';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { Button } from '../elements/button';
 import {
   ArrowRightUpLine,
   DownloadLine,
-  Filter3Line,
   LayoutGridFill,
   ListUnordered,
   SortDesc,
@@ -19,12 +17,12 @@ import { getStrapiMedia } from '../ui/strapi-image';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from '../ui/table';
+import { meiliClient } from '@/lib/meilisearch';
 import { Media, Policy } from '@/types/types';
 
 const handleDownload = async (media: Media) => {
@@ -63,19 +61,33 @@ export const PolicyRows = ({
   policies: Policy[];
   locale: string;
 }) => {
-  const [search, setSearch] = useState('');
-
-  const searcher = new FuzzySearch(policies, ['title'], {
-    caseSensitive: false,
-  });
-
+  const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [results, setResults] = useState(policies);
 
   useEffect(() => {
-    const results = searcher.search(search);
-    setResults(results);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query.trim());
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  useEffect(() => {
+    const search = async () => {
+      try {
+        if (debouncedQuery !== '') {
+          const index = meiliClient.index('policy-document');
+          const res = await index.search(debouncedQuery);
+          setResults(res.hits as Policy[]);
+        } else {
+          setResults(policies);
+        }
+      } catch (err) {
+        console.error('Meilisearch error:', err);
+      }
+    };
+    search();
+  }, [debouncedQuery]);
 
   return (
     <div className="w-full py-10">
@@ -84,8 +96,8 @@ export const PolicyRows = ({
           <Search className="text-[#717171]" />
           <input
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search"
             className="text-sm min-w-full sm:min-w-96  p-2 border-none  focus:ring-0 focus:outline-none outline-none  placeholder-[#717171] w-full text-black"
           />
@@ -95,11 +107,11 @@ export const PolicyRows = ({
           Most Recent
         </div>
         <div className="bg-black py-2 px-3 flex text-white items-center rounded-full text-xs gap-2">
-          <div className="bg-white rounded-full p-1 cursor-pointer">
-            <LayoutGridFill className="text-black" />
-          </div>
           <div className="rounded-full p-1 cursor-pointer">
-            <ListUnordered className="text-white" />
+            <LayoutGridFill className="" />
+          </div>
+          <div className=" rounded-full p-1 bg-white cursor-pointer">
+            <ListUnordered className="text-black" />
           </div>
         </div>
       </div>

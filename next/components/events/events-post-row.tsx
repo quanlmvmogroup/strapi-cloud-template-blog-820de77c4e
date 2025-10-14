@@ -3,12 +3,14 @@
 import { formatDate, isAfter } from 'date-fns';
 import { ArrowRight, Search } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
 import { getStrapiMedia } from '../ui/strapi-image';
 import { EventRegistrationForm } from './events-registration-form';
+import { meiliClient } from '@/lib/meilisearch';
 import { getYouTubeVideoId } from '@/lib/utils';
+import { DataCatalogue } from '@/types/types';
 
 export const EventPostRows = ({
   events,
@@ -17,11 +19,38 @@ export const EventPostRows = ({
   events: any[];
   locale: string;
 }) => {
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [results, setResults] = useState(events);
+
   const [openVideo, setOpenVideo] = useState<string | undefined>();
   const [openRegistrationForm, setOpenRegistrationForm] = useState<
     string | undefined
   >();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query.trim());
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  useEffect(() => {
+    const search = async () => {
+      try {
+        if (debouncedQuery !== '') {
+          const index = meiliClient.index('event');
+          const res = await index.search(debouncedQuery);
+          setResults(res.hits as DataCatalogue[]);
+        } else {
+          setResults(events);
+        }
+      } catch (err) {
+        console.error('Meilisearch error:', err);
+      }
+    };
+    search();
+  }, [debouncedQuery]);
 
   return (
     <div className="w-full py-10">
@@ -30,8 +59,8 @@ export const EventPostRows = ({
           <Search className="text-[#717171]" />
           <input
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search"
             className="text-sm min-w-full sm:min-w-96  p-2 border-none  focus:ring-0 focus:outline-none outline-none  placeholder-[#717171] w-full text-black"
           />
@@ -41,13 +70,13 @@ export const EventPostRows = ({
       <div className="text-2xl">Other Events</div>
 
       <div className=" divide-neutral-800 gap-10 mt-6">
-        {events.length === 0 ? (
+        {results.length === 0 ? (
           <p className="text-neutral-400 text-center p-4 w-full">
             No results found
           </p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {events.map((event) => {
+            {results.map((event) => {
               const isAfterEvent = isAfter(new Date(), event.start_datetime);
 
               return (
@@ -96,11 +125,6 @@ export const EventPostRows = ({
                         className="mt-2 items-center text-xs font-semibold text-green-700 flex gap-2"
                         onClick={(e) => {
                           setOpenRegistrationForm(event.documentId);
-
-                          console.log(
-                            '🚀 ~ events-post-row.tsx:100 ~ event:',
-                            event
-                          );
                         }}
                       >
                         Register now <ArrowRight size={16} />

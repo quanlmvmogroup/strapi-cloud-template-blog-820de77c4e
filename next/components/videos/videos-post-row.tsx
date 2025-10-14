@@ -25,8 +25,9 @@ import {
   TableHeader,
   TableRow,
 } from '../ui/table';
+import { meiliClient } from '@/lib/meilisearch';
 import { getYouTubeVideoId } from '@/lib/utils';
-import { Video } from '@/types/types';
+import { DataCatalogue, Video } from '@/types/types';
 
 export const VideoPostRows = ({
   videos,
@@ -35,20 +36,34 @@ export const VideoPostRows = ({
   videos: Video[];
   locale: string;
 }) => {
-  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [results, setResults] = useState(videos);
   const [openVideo, setOpenVideo] = useState<string | undefined>();
 
-  const searcher = new FuzzySearch(videos, ['title'], {
-    caseSensitive: false,
-  });
-
-  const [results, setResults] = useState(videos);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query.trim());
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query]);
 
   useEffect(() => {
-    const results = searcher.search(search);
-    setResults(results);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+    const search = async () => {
+      try {
+        if (debouncedQuery !== '') {
+          const index = meiliClient.index('video');
+          const res = await index.search(debouncedQuery);
+          setResults(res.hits as Video[]);
+        } else {
+          setResults(videos);
+        }
+      } catch (err) {
+        console.error('Meilisearch error:', err);
+      }
+    };
+    search();
+  }, [debouncedQuery]);
 
   return (
     <div className="w-full py-10">
@@ -57,8 +72,8 @@ export const VideoPostRows = ({
           <Search className="text-[#717171]" />
           <input
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search"
             className="text-sm min-w-full sm:min-w-96  p-2 border-none  focus:ring-0 focus:outline-none outline-none  placeholder-[#717171] w-full text-black"
           />
