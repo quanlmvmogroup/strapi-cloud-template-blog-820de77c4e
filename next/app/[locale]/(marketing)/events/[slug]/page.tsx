@@ -47,7 +47,7 @@ export default async function EventPage(props: {
             <div className="mt-10">
               <h2 className="text-2xl mb-4">Agenda</h2>
               <div className="flex flex-col gap-10">
-                {event.agenda.map((agenda, index: number) => (
+                {event.agenda.map((agenda: any, index: number) => (
                   <div key={index} className="mb-2">
                     <div className="font-semibold text-lg">
                       Day{index + 1}: {agenda.title}
@@ -73,7 +73,7 @@ export default async function EventPage(props: {
                       )}
                     </div>
                     <div className="flex flex-col gap-4">
-                      {agenda.items?.map((item, idx: number) => {
+                      {agenda.items?.map((item: any, idx: number) => {
                         const parsedStartTime = parse(
                           item.start_time,
                           'HH:mm:ss.SSS',

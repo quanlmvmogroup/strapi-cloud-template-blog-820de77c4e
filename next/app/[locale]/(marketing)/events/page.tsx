@@ -58,11 +58,11 @@ export default async function Events(props: {
         {eventsPage.events.length > 0 && (
           <Carousel className="relative">
             <CarouselContent>
-              {eventsPage.events.map((event, index) => {
+              {eventsPage.events.map((event: any) => {
                 const isAfterEvent = isAfter(new Date(), event.start_datetime);
                 return (
                   <CarouselItem
-                    key={index}
+                    key={event.id}
                     className="overflow-hidden rounded-lg"
                   >
                     <div className="relative">
@@ -93,10 +93,7 @@ export default async function Events(props: {
                       </div>
                       <img
                         src={String(getStrapiMedia(event.image.url))}
-                        alt={
-                          event.image.alternativeText ||
-                          `Event image ${index + 1}`
-                        }
+                        alt={event.image.alternativeText || event.title}
                         className="w-full rounded-lg"
                       />
                     </div>
