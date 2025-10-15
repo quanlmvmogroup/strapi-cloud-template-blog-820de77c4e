@@ -52,6 +52,9 @@ const componentMapping: { [key: string]: any } = {
   'dynamic-zone.data-catalogues': dynamic(() =>
     import('./data-catalogues').then((mod) => mod.DataCatalogues)
   ),
+  'dynamic-zone.events': dynamic(() =>
+     import('./event').then((mod) => mod.Event)
+  ),
   'dynamic-zone.resources': dynamic(() =>
     import('./resources').then((mod) => mod.Resources)
   ),
