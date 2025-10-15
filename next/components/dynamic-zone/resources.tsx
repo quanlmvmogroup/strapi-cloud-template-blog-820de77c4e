@@ -31,7 +31,7 @@ export function Resources({
   }
 
   return (
-    <div className="w-full bg-green-100 rounded-3xl p-10 flex justify-between gap-44">
+    <div className="w-full bg-green-100 rounded-3xl p-10 flex justify-between gap-44 my-24">
       <div className="w-72">
         <div className="text-3xl font-medium">{heading}</div>
         <div className="text-xs text-[#7F8489] mt-2">{sub_heading}</div>

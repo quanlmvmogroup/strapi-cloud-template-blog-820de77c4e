@@ -37,7 +37,7 @@ export const Hero = ({
   return (
     <div className="mb-12">
       {image && (
-        <div className="relative size-20 mx-auto mt-10">
+        <div className="relative size-20 mx-auto mb-12 mt-20">
           <StrapiImage
             src={image.url}
             layout="fill"
@@ -57,32 +57,33 @@ export const Hero = ({
         />
       </Heading>
       {sub_heading && (
-        <Subheading className="text-center mt-2 md:mt-5 text-base md:text-xl max-w-3xl mx-auto relative z-10 text-[#7F8489] [&_h4]:!text-base [&_h4]:!-mt-3">
+        <Subheading className="text-center mt-2 md:mt-5 text-base max-w-3xl mx-auto relative z-10 text-[#7F8489] [&_h4]:!text-base [&_h4]:!-mt-3">
           {sub_heading}
         </Subheading>
       )}
       {CTAs && CTAs.length > 0 && (
         <div className="flex justify-center">
-          <div className="flex space-x-2 items-center mt-8">
-            {CTAs.map((cta) => (
-              <Button
-                key={cta?.id}
-                as={Link}
-                href={`/${locale}${cta.URL}`}
-                {...(cta.variant && { variant: cta.variant })}
-                className="rounded-full !text-xs !bg[#189548] py-3 px-5"
-              >
-                {cta.text}
-              </Button>
-            ))}
-          </div>
+          {CTAs.map((cta) => (
+            cta?.URL && (
+              <div key={cta?.id} className="flex space-x-2 items-center mt-3">
+                <Button
+                  as={Link}
+                  href={`/${locale}${cta.URL}`}
+                  {...(cta.variant && { variant: cta.variant })}
+                  className="rounded-full !text-xs !bg-[#189548] py-3 px-5"
+                >
+                  {cta.text}
+                </Button>
+              </div>
+            )
+          ))}
         </div>
       )}
       {readmore && (
-        <div className="text-center mt-4">
+        <div className="text-center">
           <Link
             href={`/${locale}${readmore.URL}`}
-            className="text-green-700 flex gap-2 items-center justify-center text-base font-medium"
+            className="text-green-700 flex gap-2 items-center justify-center text-base font-medium pb-3"
           >
             {readmore.text} <ArrowRight />
           </Link>

@@ -32,10 +32,10 @@ export const Event = ({
     const [openRegistrationForm, setOpenRegistrationForm] = useState<string | undefined>();
 
     return (
-        <div className="mb-12">
+        <div className="mb-24">
             <Heading
                 as="h1"
-                className="text-4xl md:text-4xl lg:text-5xl max-w-3xl mx-auto text-center mt-16 relative z-10  [&_a]:text-primary font-normal [&_h3]:text-3xl"
+                className="text-3xl max-w-3xl mx-auto text-center mt-24 relative"
             >
                 <div
                     dangerouslySetInnerHTML={{
@@ -44,13 +44,13 @@ export const Event = ({
                 />
             </Heading>
             {sub_heading && (
-                <Subheading className="text-center mt-2 md:mt-5 text-base md:text-xl max-w-3xl mx-auto relative z-10 text-[#7F8489] [&_h4]:!text-base [&_h4]:!-mt-3">
+                <Subheading className="text-center my-3 text-base max-w-3xl mx-auto relative z-10 text-[#7F8489] [&_h4]:!text-base [&_h4]:!-mt-3">
                     {sub_heading}
                 </Subheading>
             )}
             {cta && (
                 <div className="flex justify-center">
-                    <div className="flex space-x-2 items-center mt-8">
+                    <div className="flex space-x-2 items-center">
                         <Button
                             key={cta?.id}
                             as={Link}
