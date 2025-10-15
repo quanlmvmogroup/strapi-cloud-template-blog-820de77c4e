@@ -24,12 +24,9 @@ export const Subheading = ({
         'text-muted text-center font-normal',
         className
       )}
+      {...props}
     >
-      <div
-        dangerouslySetInnerHTML={{
-          __html: <Balancer>children</Balancer>,
-        }}
-      />
+      <Balancer>{children}</Balancer>
     </Tag>
   );
 };
