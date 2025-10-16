@@ -12,6 +12,13 @@ import {
 } from './ui/dropdown-menu';
 import { useSlugContext } from '@/app/context/SlugContext';
 
+const STATIC_PAGES: Record<string, string> = {
+  'data-catalogue-page': 'data-catalogues',
+  'videos-page': 'videos',
+  'policy-page': 'policy',
+  'event-page': 'events',
+};
+
 export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const { state } = useSlugContext();
   const { localizedSlugs } = state;
@@ -31,10 +38,12 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
     // Handle dynamic paths (e.g., "/en/blog/[slug]")
     if (localizedSlugs[locale]) {
       segments[1] = locale; // Replace the locale
-      segments[segments.length - 1] = localizedSlugs[locale].replace(
-        '-page',
-        ''
-      ); // Replace slug if available
+      segments[segments.length - 1] = localizedSlugs[locale]; // Replace slug if available
+
+      if (STATIC_PAGES[localizedSlugs[locale]]) {
+        segments[segments.length - 1] = STATIC_PAGES[localizedSlugs[locale]]; // Handle static pages
+      }
+
       return segments.join('/');
     }
 
