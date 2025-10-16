@@ -166,6 +166,7 @@ export const EventPostRows = ({
           documentId={openRegistrationForm}
           open={Boolean(openRegistrationForm)}
           onClose={() => setOpenRegistrationForm(undefined)}
+          locale={locale}
         />
       )}
     </div>

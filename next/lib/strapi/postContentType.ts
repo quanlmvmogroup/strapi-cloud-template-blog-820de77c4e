@@ -30,11 +30,14 @@ export function spreadStrapiData(data: StrapiResponse): StrapiData | null {
 export default async function postContentType(
   contentType: string,
   data: Record<string, unknown> = {},
-  spreadData?: boolean
+  status?: 'published' | 'draft'
 ): Promise<any> {
   try {
     // Construct the full URL for the API request
-    const url = new URL(`api/${contentType}`, process.env.NEXT_PUBLIC_API_URL);
+    const url = new URL(
+      `api/${contentType}?status=${status}`,
+      process.env.NEXT_PUBLIC_API_URL
+    );
 
     // Perform the fetch request with the provided query parameters
     const response = await fetch(`${url.href}`, {
@@ -50,14 +53,14 @@ export default async function postContentType(
         `Failed to post data to Strapi (url=${url.toString()}, status=${response.status})`
       );
       // Return appropriate fallback based on expected data structure
-      return spreadData ? null : { data: [] };
+      return response;
     }
     const jsonData: StrapiResponse = await response.json();
-    return spreadData ? spreadStrapiData(jsonData) : jsonData;
+    return jsonData;
   } catch (error) {
     // Log any errors that occur during the fetch process
     console.error('FetchContentTypeError', error);
     // Return appropriate fallback based on expected data structure
-    return spreadData ? null : { data: [] };
+    return null;
   }
 }

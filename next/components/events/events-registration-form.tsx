@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -27,23 +28,33 @@ export const EventRegistrationForm = ({
   open,
   onClose,
   documentId,
+  locale,
 }: {
   open: boolean;
   onClose: () => void;
   documentId: string;
+  locale: string;
 }) => {
+  const [submitting, setSubmitting] = useState(false);
+
   const form = useForm({
     mode: 'all',
     resolver: zodResolver(FormSchema),
   });
 
   const onSubmit = form.handleSubmit(async (data) => {
-    const res = await postContentType('event-registrations', {
-      ...data,
-      event: documentId,
-    });
+    setSubmitting(true);
+    const res = await postContentType(
+      'event-registrations',
+      {
+        ...data,
+        event: documentId,
+        locale,
+      },
+      'draft'
+    );
 
-    if (res?.data) {
+    if (res?.data && !res?.data?.error) {
       form.reset();
       onClose();
       toast.success('Registration successful!');
@@ -51,6 +62,7 @@ export const EventRegistrationForm = ({
       console.error('Failed to submit the form');
       toast.error('Registration failed. Please try again.');
     }
+    setSubmitting(false);
   });
 
   return (
@@ -121,8 +133,12 @@ export const EventRegistrationForm = ({
               <Button variant={'outline'} onClick={() => onClose()}>
                 Cancel
               </Button>
-              <Button className="!bg-green-600 !text-white" type="submit">
-                Submit
+              <Button
+                className="!bg-green-600 !text-white"
+                type="submit"
+                disabled={submitting}
+              >
+                {submitting ? 'Submitting...' : 'Submit'}
               </Button>
             </div>
           </form>
